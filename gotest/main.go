@@ -96,6 +96,7 @@ func num1_2() {
 	fmt.Print("Enter 2 number [num1 | num2] : ")
 	var x, y float64
 	fmt.Scan(&x, &y)
+
 	fmt.Println("Result : ", CalPower(x, y))
 
 	fmt.Print("\n")
@@ -104,6 +105,10 @@ func num1_2() {
 func num2() {
 	x := []int{
 		48, 96, 86, 68, 57, 82, 63, 70, 37, 34, 83, 27, 19, 97, 9, 17,
+	}
+
+	for _, v := range x {
+		fmt.Print(v, " ")
 	}
 
 	fmt.Println("Max In X : ", FindMax(x))
