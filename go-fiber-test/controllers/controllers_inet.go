@@ -267,6 +267,7 @@ func GetDogsJson(c *fiber.Ctx) error {
 		SumPink    int         `json:"sum_pink"`
 		SumNoColor int         `json:"sum_no_color"`
 	}
+
 	r := ResultData{
 		Data:       dataResults,
 		Name:       "golang-test",
@@ -283,7 +284,7 @@ func GetDelDogs(ctx *fiber.Ctx) error {
 	db := database.DBConn
 	var dogs []m.Dogs
 	// Retrieve all dogs including deleted records
-	if err := db.Unscoped().Where("deleted_at IS NOT NULL").Find(&dogs).Error; err != nil {
+	if err := db.Where("deleted_at IS NOT NULL").Find(&dogs).Error; err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Failed to retrieve dogs",
 			"error":   err.Error(),

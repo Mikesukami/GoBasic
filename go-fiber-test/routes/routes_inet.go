@@ -9,11 +9,6 @@ import (
 )
 
 func InetRoutes(app *fiber.App) {
-	app.Use(basicauth.New(basicauth.Config{
-		Users: map[string]string{
-			"gofiber": "21022566",
-		},
-	}))
 
 	// /api/v1
 	api := app.Group("/api")
@@ -29,7 +24,7 @@ func InetRoutes(app *fiber.App) {
 
 	//CRUD dogs
 	dog := v1.Group("/dog")
-	dog.Get("", c.GetDogs)
+	dog.Get("", Auth(), c.GetDogs)
 	dog.Get("/filter", c.GetDog)  //search query
 	dog.Get("/del", c.GetDelDogs) //7.0.2
 	dog.Get("/con", c.GetDogsCon) // 7.1
@@ -50,4 +45,12 @@ func InetRoutes(app *fiber.App) {
 
 	v3 := api.Group("/v3")
 	v3.Post("/", c.NameToAscii)
+}
+
+func Auth() fiber.Handler {
+	return basicauth.New(basicauth.Config{
+		Users: map[string]string{
+			"gofiber": "21022566",
+		},
+	})
 }
